@@ -52,7 +52,7 @@ public class MonthlyReport{
         for(int i = 1; i < lines.length; i++){
             String[] lineContents = lines[i].split(",");
             if(lineContents[1].equals("TRUE")){
-                Integer totalCost = Integer.parseInt(lineContents[2]) * Integer.parseInt(lineContents[3]);
+                Integer totalCost = totalCost(Integer.parseInt(lineContents[2]), Integer.parseInt(lineContents[3]));
                 if(totalCost > bigLose){
                     bigLose = totalCost;
                     bigLoseName = lineContents[0];
@@ -60,7 +60,7 @@ public class MonthlyReport{
             }
 
             else if(lineContents[1].equals("FALSE")){
-                Integer totalCost = Integer.parseInt(lineContents[2]) * Integer.parseInt(lineContents[3]);
+                Integer totalCost = totalCost(Integer.parseInt(lineContents[2]), Integer.parseInt(lineContents[3]));
                 if(totalCost > profitProduct){
                     profitProduct = totalCost;
                     profitProductName = lineContents[0];
@@ -80,15 +80,19 @@ public class MonthlyReport{
         for(int i = 1; i < lines.length; i++){
             String[] lineContents = lines[i].split(",");
             if(lineContents[1].equals("TRUE")){
-                Integer totalCost = Integer.parseInt(lineContents[2]) * Integer.parseInt(lineContents[3]);
+                Integer totalCost = totalCost(Integer.parseInt(lineContents[2]), Integer.parseInt(lineContents[3]));
                 loseSum+=totalCost;
             }
 
             else if(lineContents[1].equals("FALSE")){
-                Integer totalCost = Integer.parseInt(lineContents[2]) * Integer.parseInt(lineContents[3]);
+                Integer totalCost = totalCost(Integer.parseInt(lineContents[2]), Integer.parseInt(lineContents[3]));
                 profitSum+=totalCost;
             }
         }
         return new int[]{ loseSum, profitSum };
+    }
+
+    private Integer totalCost(Integer count, Integer cost){
+        return count * cost;
     }
 }
